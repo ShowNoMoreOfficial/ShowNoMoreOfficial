@@ -75,7 +75,7 @@ export default function Home() {
       {/* The rest of your page content remains below */}
 
       {/* FAQ */}
-      <div id="about-us" className="w-full flex flex-col md:flex-row items-center justify-center mt-20 md:mt-25 mx-3">
+      <div id="about-us" className="w-full flex flex-col md:flex-row items-center justify-center mt-20 md:mt-25 px-6">
         <div className="min-h-[50vh] flex flex-col items-center justify-center w-full md:w-1/2">
           <div className="w-full max-w-full mx-auto">
             {accordionItems.map((item, index) => (
@@ -106,7 +106,7 @@ export default function Home() {
 
 
       {/* SUMMER PLANS */}
-      <div className="w-full pt-16 my-0 flex flex-col md:flex-row justify-start items-start mx-3">
+      <div className="w-full pt-16 my-0 flex flex-col md:flex-row justify-start items-start px-6">
         {/* Left Column: Text and Image */}
         <div className="w-full md:w-1/2 flex flex-col items-start pr-8">
           <p className="text-2xl text-gray-700 font-medium mb-4">CURRENTLY MAKING <br /> SUMMER PLANS.</p>
