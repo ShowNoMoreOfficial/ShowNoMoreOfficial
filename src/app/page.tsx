@@ -49,33 +49,26 @@ export default function Home() {
         {/* Overlay for Content */}
         <div className="relative z-10 flex flex-col items-center justify-between text-center p-4">
           {/* Main Heading: SHOWNOMORE */}
-          <div className="text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[16rem] p-0 leading-none font-extrabold text-[#cc0906] tracking-tighter">
+          <div className="text-5xl sm:text-[10rem] md:text-[12rem] lg:text-[16rem] p-0 leading-none font-extrabold text-[#cc0906] tracking-tighter">
             SHOWNOMORE
-            <sup className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl align-super ml-2">&reg;</sup>
+            <sup className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl align-super ml-2">&reg;</sup>
           </div>
 
           {/* Descriptive Text */}
-          <p className="text-xl md:text-2xl text-white font-medium leading-relaxed max-w-lg mt-4">
-            Discover Our <span className='underline underline-offset-8 hover:text-[#cc0906] hover:font-bold cursor-pointer'>Creative & Artistic Cult.</span> And Our Commitment To No Mediocrity.
+          <p className="text-lg md:text-2xl text-white font-medium leading-relaxed max-w-lg mt-4">
+            Discover Our <span className='underline underline-offset-8 hover:text-[#cc0906] cursor-pointer'><a href="/capabilities">Creative & Artistic Cult.</a></span> And Our Commitment To No Mediocrity.
           </p>
 
           {/* Clear Call to Action (CTA) */}
           <div className='mt-8'>
-            <a href="#about-us" className="text-xl md:text-2xl text-white font-bold leading-relaxed max-w-sm cursor-pointer hover:underline hover:border-[#cc0906] underline-offset-8 border-2 border-white py-3 px-6 rounded-full transition-colors hover:bg-transparent hover:text-[#cc0906]">
+            <a href="/about" className="text-lg md:text-2xl text-white font-bold leading-relaxed max-w-sm cursor-pointer hover:underline hover:border-[#cc0906] underline-offset-8 border-2 border-white py-3 px-6 rounded-full transition-colors hover:bg-transparent hover:text-[#cc0906]">
               More (About) Us &rarr;
             </a>
           </div>
         </div>
       </div>
-      {/* ============================================================
-        END: MODIFIED HERO SECTION
-        ============================================================
-      */}
 
-      {/* The rest of your page content remains below */}
-
-      {/* FAQ */}
-      <div id="about-us" className="w-full flex flex-col md:flex-row items-center justify-center mt-20 md:mt-25 px-6">
+      <div id="about-us" className="w-full flex flex-col-reverse md:flex-row items-center justify-center mt-20 md:mt-25 px-6">
         <div className="min-h-[50vh] flex flex-col items-center justify-center w-full md:w-1/2">
           <div className="w-full max-w-full mx-auto">
             {accordionItems.map((item, index) => (
@@ -97,7 +90,7 @@ export default function Home() {
           </div>
         </div>
         <div className="min-h-[50vh] w-full md:w-1/2 flex items-start justify-end md:mt-0">
-          <div className='text-5xl md:text-7xl font-bold text-gray-800 mb-4 mt-20 text-right'>
+          <div className='text-5xl md:text-7xl font-bold text-gray-800 mt-40 md:mt-30 text-right'>
             FREQUENTLY ASKED <br />
             (QUESTIONS)
           </div>
@@ -126,7 +119,7 @@ export default function Home() {
               Development Team In Delhi.<br />
               Through This, We Expand Our <br />
               Capabilities, Opportunities, And <br />
-              Talent. <a href="#" className="text-[#cc0906] hover:underline underline-offset-8 cursor-pointer">View Open Roles &rarr;</a>
+              Talent. <a href="https://www.linkedin.com/company/shownomore/jobs/" className="text-[#cc0906] hover:underline underline-offset-8 cursor-pointer">View Open Roles &rarr;</a>
             </p>
             <p className="text-2xl text-gray-700 leading-relaxed">
               Recent Work : TheSquirrelsTV's X <br />
@@ -144,8 +137,8 @@ export default function Home() {
             </p>
             <p className="text-2xl text-gray-700 leading-relaxed mb-4">
               Address:<br />
-              C101 Saldanha Orchid<br />
-              Portawado Siolim, GA  403517
+              Karkardooma, DL 110092<br />
+              Siolim, GA  403517
             </p>
             <p className="text-2xl text-gray-700 leading-relaxed">
               Phone:<br />
