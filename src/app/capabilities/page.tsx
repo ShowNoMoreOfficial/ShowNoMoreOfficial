@@ -48,7 +48,7 @@ const ServiceSection: React.FC<{ title: string; services: Service[]; onHoverChan
 	return (
 		<div className="mb-16">
 			<h2
-				className="text-7xl md:text-8xl mb-6 flex items-center tracking-tighter relative group cursor-pointer"
+				className="text-6xl md:text-8xl mb-6 flex items-center tracking-tighter relative group cursor-pointer"
 				onMouseEnter={() => onHoverChange(title)} // Notify parent on mouse enter
 				onMouseLeave={() => onHoverChange(null)}   // Notify parent on mouse leave
 				onClick={() => handleTitleClick(title)}    // Add onClick to the title

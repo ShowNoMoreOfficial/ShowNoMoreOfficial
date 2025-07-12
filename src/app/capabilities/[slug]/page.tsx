@@ -109,7 +109,7 @@ const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }>
 		<main className="bg-[#F5F0E6] text-[#1a1a1a] min-h-screen font-serif p-8 md:p-16 lg:p-24">
 			<div className="">
 				{/* Large descriptive heading */}
-				<h1 className="max-w-5xl mx-auto text-6xl md:text-8xl lg:text-9xl tracking-tight leading-none mb-24 md:mb-32 text-center">
+				<h1 className="max-w-5xl mx-auto text-6xl md:text-8xl lg:text-9xl tracking-tight leading-none mb-24 md:mb-32 mt-25 text-center">
 					{capability.description[0]}{' '}
 					<span className="font-bold italic">{capability.description[1]}</span>{' '}
 					{capability.description[2]}
