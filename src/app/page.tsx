@@ -133,7 +133,7 @@ export default function Home() {
             <h3 className="text-5xl font-bold text-gray-800 mb-4">(Contact)</h3>
             <p className="text-2xl text-gray-700 leading-relaxed mb-4">
               New Business:<br />
-              <a href="mailto:dev@shownomore.com" className="text-[#cc0906] hover:underline underline-offset-8 cursor-pointer">dev@shownomore.com</a>
+              <a href="mailto:dev@shownomore.com" className="text-[#cc0906] hover:underline underline-offset-8 cursor-pointer text-md">dev@shownomore.com</a>
             </p>
             <p className="text-2xl text-gray-700 leading-relaxed mb-4">
               Address:<br />
@@ -142,7 +142,7 @@ export default function Home() {
             </p>
             <p className="text-2xl text-gray-700 leading-relaxed">
               Phone:<br />
-              +91 9075975133
+              +91 96507 01275
             </p>
           </div>
         </div>
