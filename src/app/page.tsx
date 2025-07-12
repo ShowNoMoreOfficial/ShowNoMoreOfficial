@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { useState } from 'react';
-
+import { ArrowUpRight } from 'lucide-react';
 // Main App component
 export default function Home() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -61,8 +61,8 @@ export default function Home() {
 
           {/* Clear Call to Action (CTA) */}
           <div className='mt-8'>
-            <a href="/about" className="text-lg md:text-2xl text-white font-bold leading-relaxed max-w-sm cursor-pointer hover:underline hover:border-[#cc0906] underline-offset-8 border-2 border-white py-3 px-6 rounded-full transition-colors hover:bg-transparent hover:text-[#cc0906]">
-              More (About) Us &rarr;
+            <a href="/about" className=" flex justify-between items-center gap-6 text-lg md:text-2xl text-white font-bold leading-relaxed max-w-sm cursor-pointer hover:border-[#cc0906] border-2 border-white py-2 px-4 rounded-full transition-colors hover:bg-transparent hover:text-[#cc0906]">
+              More About Us <span className='border-2 rounded-full p-2'><ArrowUpRight /></span>
             </a>
           </div>
         </div>
