@@ -51,7 +51,7 @@ export default function NavBar() {
 				{/* Middle section: Navigation Links */}
 				<div className="flex space-x-3">
 					{/* Partnership Link */}
-					<a href="/partnerships" className="relative flex items-baseline text-2xl text-gray-700 hover:text-red-500 transition-colors duration-200 font-medium group">
+					<a href="/partnerships" className="relative flex items-baseline text-2xl text-gray-600 hover:text-red-500 transition-colors duration-200 font-medium group">
 						<span className="relative text-sm -top-2.5 mr-1 text-gray-500 group-hover:text-red-500 transition-colors duration-200">(01)</span>
 						<span className="relative">
 							Partnerships,
@@ -59,7 +59,7 @@ export default function NavBar() {
 						</span>
 					</a>
 					{/* Capabilities Link */}
-					<a href="/capabilities" className="relative flex items-baseline text-2xl text-gray-700 hover:text-red-500 transition-colors duration-200 font-medium group">
+					<a href="/capabilities" className="relative flex items-baseline text-2xl text-gray-600 hover:text-red-500 transition-colors duration-200 font-medium group">
 						<span className="relative text-sm -top-2.5 mr-1 text-gray-500 group-hover:text-red-500 transition-colors duration-200">(02)</span>
 						<span className="relative">
 							Capabilities,
@@ -67,7 +67,7 @@ export default function NavBar() {
 						</span>
 					</a>
 					{/* Conversations Link */}
-					<a href="/conversations" className="relative flex items-baseline text-2xl text-gray-700 hover:text-red-500 transition-colors duration-200 font-medium group">
+					<a href="/conversations" className="relative flex items-baseline text-2xl text-gray-600 hover:text-red-500 transition-colors duration-200 font-medium group">
 						<span className="relative text-sm -top-2.5 mr-1 text-gray-500 group-hover:text-red-500 transition-colors duration-200">(03)</span>
 						<span className="relative">
 							Collective
@@ -78,10 +78,10 @@ export default function NavBar() {
 
 				{/* Right section: About Link */}
 				<div>
-					<a href="/about" className="relative text-2xl text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium group">
+					<a href="/about" className="relative text-2xl text-gray-700 hover:text-red-500 transition-colors duration-200 font-medium group">
 						<span className="relative">
 							About
-							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</span>
 					</a>
 				</div>

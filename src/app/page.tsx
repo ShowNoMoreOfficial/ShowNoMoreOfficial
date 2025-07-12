@@ -16,10 +16,10 @@ export default function Home() {
   };
 
   const accordionItems = [
-    { id: '01', title: 'MORE EFFICIENT PERFORMANCE MARKETING' },
-    { id: '02', title: 'ABLE TO SCALE YOUR SPEND DUE TO MORE CREATIVES' },
-    { id: '03', title: 'UNDERSTANDING YOUR CONTENT WHAT WORKS AND WHAT DOESN\'T' },
-    { id: '04', title: 'MORE CONTENT, MORE ENGAGEMENT, MORE SALES' },
+    { id: '01', title: 'MORE EFFICIENT PERFORMANCE MARKETING', description: 'We Help You Scale Your Performance Marketing With More Creatives, Better Targeting, And Data-Driven Strategies.' },
+    { id: '02', title: 'ABLE TO SCALE YOUR SPEND DUE TO MORE CREATIVES', description: 'We Help You Scale Your Performance Marketing With More Creatives, Better Targeting, And Data-Driven Strategies.' },
+    { id: '03', title: 'UNDERSTANDING YOUR CONTENT WHAT WORKS AND WHAT DOESN\'T', description: 'We Help You Scale Your Performance Marketing With More Creatives, Better Targeting, And Data-Driven Strategies.' },
+    { id: '04', title: 'MORE CONTENT, MORE ENGAGEMENT, MORE SALES', description: 'We Help You Scale Your Performance Marketing With More Creatives, Better Targeting, And Data-Driven Strategies.' },
   ];
 
   return (
@@ -89,7 +89,7 @@ export default function Home() {
                 </button>
                 {openIndex === index && (
                   <div className="pb-4 pl-12 pr-4 text-gray-700">
-                    <p>Details about {item.title}.</p> {/* Added placeholder content */}
+                    <p>{item.description}</p> {/* Added placeholder content */}
                   </div>
                 )}
               </div>
@@ -106,7 +106,7 @@ export default function Home() {
 
 
       {/* SUMMER PLANS */}
-      <div className="w-full pt-16 my-0 flex flex-col md:flex-row justify-start items-start px-6">
+      <div className="w-full py-16 my-0 flex flex-col md:flex-row justify-start items-start px-6">
         {/* Left Column: Text and Image */}
         <div className="w-full md:w-1/2 flex flex-col items-start pr-8">
           <p className="text-2xl text-gray-700 font-medium mb-4">CURRENTLY MAKING <br /> SUMMER PLANS.</p>
