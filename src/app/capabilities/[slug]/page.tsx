@@ -167,6 +167,7 @@ const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }>
 				</div>
 
 			</div>
+			<a href='/capabilities' className='text-4xl text-[#cc0906] hover:underline underline-offset-8 font-medium pt-10 '>&larr; Other Capabilities</a>
 		</main>
 	);
 };
