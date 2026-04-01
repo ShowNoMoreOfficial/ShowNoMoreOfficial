@@ -37,7 +37,7 @@ const teamMembers: TeamMember[] = [
 		id: 3,
 		order: "03",
 		name: 'Stallone',
-		role: 'Development Lead',
+		role: 'Software Engineer',
 		imageUrl: '/images/Stallone.jpeg',
 		altText: 'Portrait of Stallone, Head Of Development',
 	},
