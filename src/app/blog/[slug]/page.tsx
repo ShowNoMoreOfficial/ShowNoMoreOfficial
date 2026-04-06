@@ -108,12 +108,12 @@ export default async function ArticlePage({
         )}
 
         {/* Author */}
-        {article.author && (
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-10 pb-8 border-b border-gray-200">
-            <span>By</span>
-            <span className="font-medium text-gray-800">{article.author}</span>
-          </div>
-        )}
+        <div className="flex items-center gap-2 text-sm text-gray-500 mb-10 pb-8 border-b border-gray-200">
+          <span>By</span>
+          <a href="/about" className="font-medium text-gray-800 hover:text-[#cc0906] transition-colors">
+            {article.author || "ShowNoMore"}
+          </a>
+        </div>
 
         {/* Cover Image */}
         {article.coverImage && (
