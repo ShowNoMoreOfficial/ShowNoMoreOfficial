@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @font-face {
   font-family: "Px-Grotesk";
   src: url("/fonts/Px-Grotesk-Light.ttf") format("truetype");

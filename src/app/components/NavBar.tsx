@@ -49,7 +49,8 @@ export default function NavBar() {
 	const allNavLinks = [
 		{ href: "/partnerships", number: "01", text: "Partnerships," },
 		{ href: "/capabilities", number: "02", text: "Capabilities," },
-		{ href: "/conversations", number: "03", text: "Collective" },
+		{ href: "/conversations", number: "03", text: "Collective," },
+		{ href: "/blog", number: "04", text: "Blog" },
 		{ href: "/about", text: "About" }
 	];
 
@@ -82,7 +83,14 @@ export default function NavBar() {
 						<a href="/conversations" className="relative flex items-baseline text-2xl text-gray-600 hover:text-red-500 transition-colors duration-200 font-medium group">
 							<span className="relative text-sm -top-2.5 mr-1 text-gray-500 group-hover:text-red-500 transition-colors duration-200">(03)</span>
 							<span className="relative">
-								Collective
+								Collective,
+								<span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+							</span>
+						</a>
+						<a href="/blog" className="relative flex items-baseline text-2xl text-gray-600 hover:text-red-500 transition-colors duration-200 font-medium group">
+							<span className="relative text-sm -top-2.5 mr-1 text-gray-500 group-hover:text-red-500 transition-colors duration-200">(04)</span>
+							<span className="relative">
+								Blog
 								<span className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 							</span>
 						</a>
