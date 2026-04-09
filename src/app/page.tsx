@@ -69,43 +69,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== STUDIO / BTS SECTION ===== */}
-      <section className="w-full">
-        {/* Full-bleed image with overlaid text */}
-        <div className="relative w-full h-[80vh] md:h-screen overflow-hidden group">
-          <Image
-            src="/images/ManCoder.jpg"
-            alt="Behind the scenes at ShowNoMore"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50" />
-
-          {/* Text overlay */}
-          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 lg:p-24">
-            <p className="text-sm text-gray-300 uppercase tracking-widest mb-4">(Behind The Scenes)</p>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none text-white mb-6">
-              We Don&apos;t Make<br />Content. We Make<br /><span className="text-[#cc0906]">Culture.</span>
-            </h2>
-            <p className="text-lg md:text-xl text-gray-300 max-w-lg leading-relaxed mb-8">
-              From Our Studios In Delhi And Goa, Every Project Gets Hands-On Craft. No Templates. No Shortcuts.
-            </p>
-            <a href="/conversations" className="text-lg text-[#cc0906] font-medium hover:underline underline-offset-8 w-fit">
-              Meet The Collective &rarr;
-            </a>
-          </div>
-        </div>
-
-        {/* Second image strip below */}
-        <div className="relative w-full h-[40vh] overflow-hidden">
-          <Image
-            src="/images/About.jpg"
-            alt="ShowNoMore studio setup"
-            fill
-            className="object-cover"
-          />
-        </div>
-      </section>
 
       {/* ===== FAQ ACCORDION ===== */}
       <div id="about-us" className="w-full flex flex-col-reverse md:flex-row items-center justify-center py-24 md:py-32 px-6">
