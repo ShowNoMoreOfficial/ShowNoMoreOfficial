@@ -111,7 +111,7 @@ export default function NavBar() {
 					{/* --- MOBILE LAYOUT --- */}
 					{/* Hamburger Menu Button (Visible on mobile) */}
 					<div className="md:hidden">
-						<button onClick={() => setIsMenuOpen(true)} className="text-gray-700 focus:outline-none">
+						<button onClick={() => setIsMenuOpen(true)} aria-label="Open menu" className="text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#cc0906] rounded">
 							<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
 							</svg>
@@ -122,8 +122,8 @@ export default function NavBar() {
 
 			{/* Mobile Menu Overlay */}
 			{isMenuOpen && (
-				<div className="fixed inset-0 bg-white z-60 flex flex-col items-center justify-center">
-					<button onClick={() => setIsMenuOpen(false)} className="absolute top-8 right-7 text-gray-700 focus:outline-none">
+				<div className="fixed inset-0 bg-white z-60 flex flex-col items-center justify-center" role="dialog" aria-modal="true" aria-label="Navigation menu">
+					<button onClick={() => setIsMenuOpen(false)} aria-label="Close menu" className="absolute top-8 right-7 text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#cc0906] rounded">
 						<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
 						</svg>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation'; // Import the useRouter hook
 
 // Define the type for a service item for type safety
@@ -142,10 +143,11 @@ const Capabilities: React.FC = () => {
                         `}>
 							{currentImage && (
 								<div className="relative w-full" style={{ paddingBottom: '140%' }}>
-									<img
+									<Image
 										src={currentImage}
 										alt={hoveredSection ? `${hoveredSection} Illustration` : "Section illustration"}
-										className="absolute inset-0 object-cover w-full h-full"
+										fill
+										className="object-cover"
 									/>
 								</div>
 							)}

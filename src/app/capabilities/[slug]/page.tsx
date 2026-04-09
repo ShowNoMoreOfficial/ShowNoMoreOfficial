@@ -1,4 +1,6 @@
 import React from 'react';
+import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 // --- Centralized Data ---
@@ -86,6 +88,19 @@ const capabilitiesData: Capability[] = [
 ];
 
 
+// --- Dynamic Metadata ---
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+	const { slug } = await params;
+	const capability = capabilitiesData.find(c => c.slug === slug);
+	if (!capability) {
+		return { title: "Not Found | Show No More" };
+	}
+	return {
+		title: `${capability.title} | Show No More`,
+		description: `${capability.description.join(" ")} Explore our ${capability.title.toLowerCase()} services.`,
+	};
+}
+
 // --- The Page Component ---
 
 const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -106,7 +121,7 @@ const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }>
 	const secondColumnServices = capability.services.slice(half);
 
 	return (
-		<main className="bg-[#F5F0E6] text-[#1a1a1a] min-h-screen font-serif p-8 md:p-16 lg:p-24">
+		<main className="text-[#1a1a1a] min-h-screen font-serif p-8 md:p-16 lg:p-24">
 			<div className="">
 				{/* Large descriptive heading */}
 				<h1 className="max-w-5xl mx-auto text-6xl md:text-8xl lg:text-9xl tracking-tight leading-none mb-24 md:mb-32 mt-25 text-center">
@@ -142,9 +157,11 @@ const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }>
 				{/* Image Section */}
 				<div className="mt-24 md:mt-32 flex justify-center">
 					<div className="w-full max-w-5xl">
-						<img
+						<Image
 							src={capability.imageUrl}
 							alt={`${capability.title} visualization`}
+							width={1200}
+							height={800}
 							className="w-full max-h-[90vh] object-cover shadow-xl"
 						/>
 					</div>

@@ -71,7 +71,7 @@ const policySections = [
 
 export default function PrivacyPolicy() {
 	return (
-		<main className="bg-[#F5F0E6] text-[#1a1a1a] min-h-screen p-8 md:p-16 lg:p-24">
+		<main className="text-[#1a1a1a] min-h-screen p-8 md:p-16 lg:p-24">
 			<div className="lg:flex lg:gap-x-16 xl:gap-x-24">
 				{/* Left Column: Sticky sidebar */}
 				<aside className="lg:w-1/3 xl:w-2/5">

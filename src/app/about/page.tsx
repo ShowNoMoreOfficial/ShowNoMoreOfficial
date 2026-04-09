@@ -2,6 +2,7 @@
 // Make sure you have Tailwind CSS configured in your project.
 "use client"
 import React from 'react';
+import Image from 'next/image';
 
 // Define the TypeScript interface for a team member's data.
 // This ensures type safety for your team data.
@@ -52,15 +53,12 @@ const teamMembers: TeamMember[] = [
 const TeamMemberCard = ({ member }: { member: TeamMember }) => (
 	<div className="flex flex-col items-start text-center">
 		<div className="w-full mb-2">
-			<img
+			<Image
 				src={member.imageUrl}
 				alt={member.altText}
+				width={500}
+				height={650}
 				className="w-full h-auto object-cover"
-				// Fallback in case an image fails to load
-				onError={(e) => {
-					const target = e.target as HTMLImageElement;
-					target.src = `https://placehold.co/500x650/e0e0e0/757575?text=Not+Found`;
-				}}
 			/>
 		</div>
 		<p className='text-sm text-gray-500'>[{member.order}]</p>
