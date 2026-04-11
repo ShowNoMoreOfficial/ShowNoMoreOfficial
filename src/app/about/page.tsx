@@ -42,6 +42,30 @@ const teamMembers: TeamMember[] = [
 		imageUrl: '/images/Stallone.jpeg',
 		altText: 'Portrait of Stallone, Head Of Development',
 	},
+	{
+		id: 4,
+		order: "04",
+		name: 'Sudhanshu',
+		role: 'Senior Video Editor',
+		imageUrl: '/images/Sudhanshu.jpeg',
+		altText: 'Portrait of Sudhanshu, Senior Video Editor',
+	},
+	// {
+	// 	id: 5,
+	// 	order: "05",
+	// 	name: 'Deepak',
+	// 	role: 'Senior Video Editor',
+	// 	imageUrl: '/images/Deepak.jpg',
+	// 	altText: 'Portrait of Deepak, Senior Video Editor',
+	// },
+	{
+		id: 5,
+		order: "05",
+		name: 'Parth',
+		role: 'Content Operations Associate',
+		imageUrl: '/images/Parth.jpeg',
+		altText: 'Portrait of Parth, Content Operations Associate',
+	}
 
 ];
 
@@ -52,13 +76,12 @@ const teamMembers: TeamMember[] = [
  */
 const TeamMemberCard = ({ member }: { member: TeamMember }) => (
 	<div className="flex flex-col items-start text-center">
-		<div className="w-full mb-2">
+		<div className="relative w-full aspect-[3/4] mb-2 overflow-hidden">
 			<Image
 				src={member.imageUrl}
 				alt={member.altText}
-				width={500}
-				height={650}
-				className="w-full h-auto object-cover"
+				fill
+				className="object-cover"
 			/>
 		</div>
 		<p className='text-sm text-gray-500'>[{member.order}]</p>
