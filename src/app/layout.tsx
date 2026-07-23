@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import CookieConsent from "./components/CookieConsent";
+import SmoothScroll from "./components/motion/SmoothScroll";
 import { Analytics } from "@vercel/analytics/next"
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,11 +19,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Show No More | Delhi-India",
   description:
-    "ShowNoMore is a creative & artistic cult based in Delhi and Goa, India. We specialize in content distribution, creative production, performance marketing, and AI-powered automation.",
+    "ShowNoMore is a creative & artistic company based in Delhi and Goa, India. We specialize in content distribution, creative production, performance marketing, and AI-powered automation.",
   openGraph: {
-    title: "Show No More | Creative & Artistic Cult",
+    title: "Show No More | Creative & Artistic Company",
     description:
-      "No mediocrity. We specialize in content distribution, creative production, performance marketing, and AI-powered automation.",
+      "A creative & artistic company specializing in content distribution, creative production, performance marketing, and AI-powered automation.",
     url: "https://shownomore.com",
     siteName: "ShowNoMore",
     locale: "en_IN",
@@ -30,9 +31,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Show No More | Creative & Artistic Cult",
+    title: "Show No More | Creative & Artistic Company",
     description:
-      "No mediocrity. Content distribution, creative production, performance marketing, and AI-powered automation.",
+      "Content distribution, creative production, performance marketing, and AI-powered automation.",
   },
 };
 
@@ -51,10 +52,12 @@ export default function RootLayout({
           Skip To Content
         </a>
         <NavBar></NavBar>
-        <div id="main-content">
-          {children}
-        </div>
-        <Footer />
+        <SmoothScroll>
+          <div id="main-content">
+            {children}
+          </div>
+          <Footer />
+        </SmoothScroll>
         <CookieConsent />
       </body>
     </html>

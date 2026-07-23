@@ -1,12 +1,29 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { gsap, useGSAP } from '../lib/gsap';
+import { useReducedMotion } from '../hooks/useReducedMotion';
+import Magnetic from './motion/Magnetic';
 
 export default function NavBar() {
 	const [isVisible, setIsVisible] = useState(true);
 	const [lastScrollY, setLastScrollY] = useState(0);
 	const [hasMounted, setHasMounted] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const menuRef = useRef<HTMLDivElement>(null);
+	const reduced = useReducedMotion();
+
+	// Stagger the mobile menu links in each time the overlay opens.
+	useGSAP(() => {
+		if (reduced !== false || !isMenuOpen || !menuRef.current) return;
+		gsap.from(menuRef.current.children, {
+			opacity: 0,
+			y: 24,
+			duration: 0.6,
+			ease: 'power3.out',
+			stagger: 0.07,
+		});
+	}, { dependencies: [isMenuOpen, reduced], scope: menuRef });
 
 	useEffect(() => {
 		setHasMounted(true);
@@ -59,9 +76,11 @@ export default function NavBar() {
 			<nav className={`fixed w-full top-0 p-6 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'} bg-transparent z-50`}>
 				<div className="flex items-center justify-between">
 					{/* Left section: Logo */}
-					<a href='/' className="cursor-pointer">
+					<Magnetic strength={0.25}>
+							<a href='/' className="cursor-pointer">
 						<Image src="/images/ShowNoMore.png" alt="ShowNoMore" height={65} width={65} className="cursor-pointer" />
 					</a>
+						</Magnetic>
 
 					{/* --- DESKTOP LAYOUT --- */}
 					{/* Middle section: Navigation Links (Hidden on mobile) */}
@@ -128,7 +147,7 @@ export default function NavBar() {
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
 						</svg>
 					</button>
-					<div className="flex flex-col items-center space-y-8">
+					<div ref={menuRef} className="flex flex-col items-center space-y-8">
 						{allNavLinks.map((link) => (
 							link.number ? (
 								<a key={link.href} href={link.href} className="relative flex items-baseline text-2xl text-gray-600 hover:text-red-500 font-medium group">

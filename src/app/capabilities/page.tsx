@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'; // Import the useRouter hook
+import Reveal from '../components/motion/Reveal';
+import SplitReveal from '../components/motion/SplitReveal';
 
 // Define the type for a service item for type safety
 type Service = {
@@ -47,7 +49,7 @@ const ServiceSection: React.FC<{ title: string; services: Service[]; onHoverChan
 	};
 
 	return (
-		<div className="mb-16">
+		<Reveal className="mb-16" y={32}>
 			<h2
 				className="text-6xl md:text-8xl mb-6 flex items-center tracking-tighter relative group cursor-pointer"
 				onMouseEnter={() => onHoverChange(title)} // Notify parent on mouse enter
@@ -82,7 +84,7 @@ const ServiceSection: React.FC<{ title: string; services: Service[]; onHoverChan
 					))}
 				</div>
 			</div>
-		</div>
+		</Reveal>
 	);
 };
 
@@ -124,14 +126,14 @@ const Capabilities: React.FC = () => {
 					{/* Left Column */}
 					<div className="lg:col-span-1 flex flex-col justify-between lg:sticky lg:top-0 lg:h-screen lg:py-8 lg:pr-12 relative">
 						<div>
-							<h1 className="font-serif text-5xl md:text-8xl tracking-tight leading-none mb-8">
+							<SplitReveal as="h1" type="chars" onScroll={false} className="font-serif text-5xl md:text-8xl tracking-tight leading-none mb-8">
 								(Collectively <br /> Made)
-							</h1>
-							<p className="text-2xl leading-relaxed max-w-md">
+							</SplitReveal>
+							<Reveal as="p" delay={0.2} className="text-2xl leading-relaxed max-w-md">
 								<span className='pl-20'>Through</span> a talent-first approach, we've established ourselves as a truly multidisciplinary
 								team with an innate sense of collaboration. We're driven by creativity, guided by insights, and
 								managed for efficiency.
-							</p>
+							</Reveal>
 						</div>
 
 						<div className={`

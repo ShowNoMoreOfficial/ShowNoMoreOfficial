@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Reveal from "../components/motion/Reveal";
+import SplitReveal from "../components/motion/SplitReveal";
 
 export const metadata: Metadata = {
 	title: "Partnerships | Show No More",
@@ -49,14 +51,14 @@ export default function Partnerships() {
 				<aside className="lg:w-1/3 xl:w-2/5">
 					<div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:justify-between py-24">
 						<div>
-							<h1 className="text-7xl md:text-8xl font-medium uppercase tracking-tighter leading-none text-[#cc0906]">
+							<SplitReveal as="h1" type="chars" onScroll={false} className="text-7xl md:text-8xl font-medium uppercase tracking-tighter leading-none text-[#cc0906]">
 								[ Partner-
 								<br />
 								ships ]
-							</h1>
-							<p className="text-lg text-gray-700 mt-8 max-w-sm leading-relaxed">
+							</SplitReveal>
+							<Reveal as="p" delay={0.2} className="text-lg text-gray-700 mt-8 max-w-sm leading-relaxed">
 								We Don&apos;t Do Clients. We Do Partners. Every Collaboration Is Built On Shared Vision, Mutual Respect, And A Commitment To Work That Actually Matters.
-							</p>
+							</Reveal>
 						</div>
 						<div className="mt-8 lg:mt-0">
 							<p className="text-sm text-gray-500">New Business</p>
@@ -74,8 +76,10 @@ export default function Partnerships() {
 				<div className="lg:w-2/3 xl:w-3/5 mt-16 lg:mt-0">
 					<div className="pt-24">
 						{partnerships.map((partner) => (
-							<div
+							<Reveal
 								key={partner.id}
+								stagger={0.1}
+								y={30}
 								className="border-t border-[#1a1a1a] py-12 grid grid-cols-1 md:grid-cols-3 gap-12"
 							>
 								<div className="md:col-span-1">
@@ -95,7 +99,7 @@ export default function Partnerships() {
 										{partner.results}
 									</p>
 								</div>
-							</div>
+							</Reveal>
 						))}
 
 						{/* Back link */}

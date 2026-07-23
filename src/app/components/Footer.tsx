@@ -1,3 +1,5 @@
+import SplitReveal from "./motion/SplitReveal";
+
 export default function Footer() {
 	return (
 		<footer className="w-full px-6 md:px-16 lg:px-24 pt-16 pb-0 overflow-hidden">
@@ -69,16 +71,16 @@ export default function Footer() {
 					&copy; {new Date().getFullYear()} ShowNoMore&reg; &mdash; All Rights Reserved.
 				</p>
 				<p className="text-sm text-gray-500">
-					Creative &amp; Artistic Cult. Delhi &amp; Goa, India.
+					Creative &amp; Artistic Company. Delhi &amp; Goa, India.
 				</p>
 			</div>
 
-			{/* Big brand name — half-cut */}
+			{/* Big brand name — half-cut, rises into frame on scroll */}
 			<div className="mt-8 overflow-hidden h-[10vw] md:h-[8vw]">
 				<a href="/" className="block">
-					<p className="text-[15vw] md:text-[12vw] font-extrabold uppercase tracking-tighter leading-none text-[#cc0906] hover:text-[#1a1a1a] transition-colors duration-300 whitespace-nowrap">
+					<SplitReveal as="p" type="chars" start="top 95%" className="text-[15vw] md:text-[12vw] font-extrabold uppercase tracking-tighter leading-none text-[#cc0906] hover:text-[#1a1a1a] transition-colors duration-300 whitespace-nowrap">
 						SHOWNOMORE<sup className="text-[3vw] align-super">&reg;</sup>
-					</p>
+					</SplitReveal>
 				</a>
 			</div>
 		</footer>

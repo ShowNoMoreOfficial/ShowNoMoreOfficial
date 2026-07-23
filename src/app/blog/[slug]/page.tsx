@@ -1,48 +1,9 @@
-import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
+import Reveal from "../../components/motion/Reveal";
+import BackButton from "../../components/BackButton";
+import { getPost, readTime, formatDateShort, parseHeadline } from "../../../lib/gather";
 
-const DAFTAR_API =
-  "https://daftar.shownomore.com/api/public/articles?key=daftar_pub_8509d3e5ad66589ab03fe1f2211411cb60db7b5adedad651";
-
-interface Article {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string | null;
-  content: string;
-  category: string | null;
-  author: string | null;
-  brand: string | null;
-  tags: string[];
-  coverImage: string | null;
-  seoTitle: string;
-  seoDescription: string;
-  wordCount: number;
-  readTimeMin: number;
-  publishedAt: string;
-  updatedAt: string;
-}
-
-async function getArticle(slug: string): Promise<Article | null> {
-  try {
-    const res = await fetch(`${DAFTAR_API}&slug=${slug}&format=html`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.data || null;
-  } catch {
-    return null;
-  }
-}
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -50,11 +11,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getArticle(slug);
-  if (!article) return { title: "Article Not Found" };
+  const article = await getPost(slug);
+  if (!article) return { title: "Article Not Found | Show No More" };
   return {
-    title: `${article.seoTitle || article.title} | Show No More`,
-    description: article.seoDescription || article.excerpt || "",
+    title: `${article.title} | Show No More`,
+    description: article.title,
+    openGraph: article.coverImage
+      ? { images: [{ url: article.coverImage }] }
+      : undefined,
   };
 }
 
@@ -64,108 +28,105 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getArticle(slug);
+  const article = await getPost(slug);
 
   if (!article) {
     notFound();
   }
 
+  const segments = parseHeadline(article.title);
+  const author = article.author?.name || "ShowNoMore";
+
   return (
-    <div className="min-h-screen px-6 pt-32 pb-20">
-      <article className="max-w-3xl mx-auto">
-        {/* Back link */}
-        <a
-          href="/blog"
-          className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-[#cc0906] transition-colors mb-8"
-        >
-          &larr; Back to Blog
-        </a>
+    <div className="min-h-screen px-6 md:px-10 pt-28 pb-24">
+      {/* Top meta line */}
+      <div className="flex items-center justify-between text-xs md:text-sm text-gray-500 mb-10">
+        <BackButton fallback="/blog" className="hover:text-[#cc0906] transition-colors cursor-pointer">
+          &larr; Back
+        </BackButton>
+        <span>
+          {formatDateShort(article.createdAt)} &middot; {readTime(article)} min read
+        </span>
+      </div>
 
-        {/* Category + Date */}
-        <div className="flex items-center gap-3 text-sm text-gray-400 mb-4">
-          {article.category && (
-            <span className="text-[#cc0906] font-medium uppercase tracking-wide text-xs">
-              {article.category}
-            </span>
-          )}
-          {article.publishedAt && (
-            <span>{formatDate(article.publishedAt)}</span>
-          )}
-          <span>{article.readTimeMin} min read</span>
-          <span>{article.wordCount.toLocaleString()} words</span>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 tracking-tight leading-tight mb-4">
-          {article.title}
-        </h1>
-
-        {/* Excerpt */}
-        {article.excerpt && (
-          <p className="text-xl text-gray-500 leading-relaxed mb-8">
-            {article.excerpt}
-          </p>
-        )}
-
-        {/* Author */}
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-10 pb-8 border-b border-gray-200">
-          <span>By</span>
-          <a href="/about" className="font-medium text-gray-800 hover:text-[#cc0906] transition-colors">
-            {article.author || "ShowNoMore"}
-          </a>
-        </div>
-
-        {/* Cover Image */}
-        {article.coverImage && (
-          <div className="mb-10 overflow-hidden">
+      {/* Hero cover image — floated to the right of centre */}
+      {article.coverImage && (
+        <Reveal y={36} className="w-full mb-14 md:mb-20">
+          <div className="w-[86%] mx-auto md:mx-0 md:w-[42%] md:ml-auto md:mr-[6%] aspect-[4/5] overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={article.coverImage}
               alt={article.title}
-              className="w-full h-auto object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
-        )}
+        </Reveal>
+      )}
 
-        {/* Article Body */}
+      {/* Headline — left-aligned, two-tone via Px-Grotesk weight contrast */}
+      <h1 className="max-w-4xl text-5xl md:text-7xl lg:text-8xl text-[#1a1a1a] tracking-tight leading-[1.02]">
+        {segments.map((s, i) => (
+          <span key={i} className={s.bold ? "font-bold" : "font-light"}>
+            {s.text}
+          </span>
+        ))}
+      </h1>
+
+      {/* Author — centred credit */}
+      <p className="text-center text-sm text-gray-600 italic mt-10">(By {author})</p>
+
+      {/* Divider */}
+      <hr className="mt-10 border-t border-gray-300" />
+
+      {/* Body — narrow column offset toward centre-right; images break wider
+          and sit left, each with a small caption label (magazine asymmetry). */}
+      <div className="mt-16 md:grid md:grid-cols-12">
         <div
-          className="prose prose-lg max-w-none
-            prose-headings:font-bold prose-headings:text-gray-800 prose-headings:tracking-tight
-            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-            prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-4
-            prose-strong:text-gray-800
-            prose-a:text-[#cc0906] prose-a:no-underline hover:prose-a:underline
-            prose-ul:text-gray-600 prose-ol:text-gray-600
-            prose-blockquote:border-l-[#cc0906] prose-blockquote:text-gray-500 prose-blockquote:italic"
+          className="md:col-start-5 md:col-span-6 xl:col-start-5 xl:col-span-5
+            prose prose-sm md:prose-base max-w-none
+            prose-headings:font-medium prose-headings:text-[#1a1a1a] prose-headings:tracking-tight
+            prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+            prose-h3:text-xl prose-h3:mt-10 prose-h3:mb-3
+            prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-5
+            prose-strong:text-gray-900
+            prose-a:text-[#cc0906] prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-4
+            prose-ul:text-gray-700 prose-ol:text-gray-700
+            prose-blockquote:border-l-2 prose-blockquote:border-l-[#cc0906] prose-blockquote:not-italic prose-blockquote:text-xl prose-blockquote:font-medium prose-blockquote:text-[#1a1a1a] prose-blockquote:tracking-tight
+            prose-figure:my-10
+            prose-figcaption:mt-0 prose-figcaption:mb-3 prose-figcaption:text-[10px] prose-figcaption:uppercase prose-figcaption:tracking-[0.15em] prose-figcaption:text-gray-400 prose-figcaption:font-medium
+            prose-img:w-full prose-img:max-w-none prose-img:my-10
+            md:prose-img:w-[140%] md:prose-img:-ml-[40%]"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
+      </div>
 
-        {/* Tags */}
-        {article.tags.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-gray-200">
+      {/* Tags */}
+      {article.tags && article.tags.length > 0 && (
+        <div className="mt-16 md:grid md:grid-cols-12">
+          <div className="md:col-start-5 md:col-span-6 xl:col-start-5 xl:col-span-5 pt-8 border-t border-gray-200">
             <div className="flex flex-wrap gap-2">
-              {article.tags.map((tag) => (
+              {article.tags.map((t) => (
                 <span
-                  key={tag}
-                  className="px-3 py-1 text-xs font-medium text-gray-500 border border-gray-200 rounded-full"
+                  key={t.name}
+                  className="px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-500 border border-gray-200 rounded-full"
                 >
-                  {tag}
+                  {t.name}
                 </span>
               ))}
             </div>
           </div>
-        )}
-
-        {/* Back to Blog */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <a
-            href="/blog"
-            className="inline-flex items-center gap-2 text-lg font-medium text-gray-800 hover:text-[#cc0906] transition-colors"
-          >
-            &larr; More Articles
-          </a>
         </div>
-      </article>
+      )}
+
+      {/* Back to Blog */}
+      <div className="mt-16 pt-8 border-t border-gray-300">
+        <a
+          href="/blog"
+          className="inline-flex items-center gap-2 text-lg font-medium text-gray-800 hover:text-[#cc0906] transition-colors"
+        >
+          &larr; Back to Blog
+        </a>
+      </div>
     </div>
   );
 }

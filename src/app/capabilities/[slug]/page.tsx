@@ -2,6 +2,8 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import Reveal from '../../components/motion/Reveal';
+import SplitReveal from '../../components/motion/SplitReveal';
 
 // --- Centralized Data ---
 // We'll store all the data for our capabilities here.
@@ -124,11 +126,11 @@ const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }>
 		<main className="text-[#1a1a1a] min-h-screen font-serif p-8 md:p-16 lg:p-24">
 			<div className="">
 				{/* Large descriptive heading */}
-				<h1 className="max-w-5xl mx-auto text-6xl md:text-8xl lg:text-9xl tracking-tight leading-none mb-24 md:mb-32 mt-25 text-center">
+				<SplitReveal as="h1" type="lines" onScroll={false} className="max-w-5xl mx-auto text-6xl md:text-8xl lg:text-9xl tracking-tight leading-none mb-24 md:mb-32 mt-25 text-center">
 					{capability.description[0]}{' '}
 					<span className="font-bold italic">{capability.description[1]}</span>{' '}
 					{capability.description[2]}
-				</h1>
+				</SplitReveal>
 
 				{/* Services section */}
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -155,8 +157,8 @@ const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }>
 				</div>
 
 				{/* Image Section */}
-				<div className="mt-24 md:mt-32 flex justify-center">
-					<div className="w-full max-w-5xl">
+				<Reveal y={40} className="mt-24 md:mt-32 flex justify-center">
+					<div className="w-full max-w-5xl overflow-hidden">
 						<Image
 							src={capability.imageUrl}
 							alt={`${capability.title} visualization`}
@@ -165,21 +167,19 @@ const ServiceDetailPage = async ({ params }: { params: Promise<{ slug: string }>
 							className="w-full max-h-[90vh] object-cover shadow-xl"
 						/>
 					</div>
-				</div>
+				</Reveal>
 
 				{/* Sub-Service Explanations Section */}
 				<div className="mt-24 md:mt-32">
 					{capability.services.map((service) => (
-						<div key={service.id}>
-							<div className="border-t border-[#1a1a1a] py-12 grid grid-cols-1 md:grid-cols-3 gap-12">
-								<div className="md:col-span-1">
-									<p className="text-5xl font-medium leading-relaxed tracking-tighter">({service.name})</p>
-								</div>
-								<div className="md:col-span-2">
-									<p className="text-lg font-medium leading-relaxed max-w-prose ml-auto">{service.description}</p>
-								</div>
+						<Reveal key={service.id} stagger={0.1} y={30} className="border-t border-[#1a1a1a] py-12 grid grid-cols-1 md:grid-cols-3 gap-12">
+							<div className="md:col-span-1">
+								<p className="text-5xl font-medium leading-relaxed tracking-tighter">({service.name})</p>
 							</div>
-						</div>
+							<div className="md:col-span-2">
+								<p className="text-lg font-medium leading-relaxed max-w-prose ml-auto">{service.description}</p>
+							</div>
+						</Reveal>
 					))}
 				</div>
 

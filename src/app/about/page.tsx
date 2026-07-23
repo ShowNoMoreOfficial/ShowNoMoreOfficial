@@ -3,6 +3,8 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
+import Reveal from '../components/motion/Reveal';
+import SplitReveal from '../components/motion/SplitReveal';
 
 // Define the TypeScript interface for a team member's data.
 // This ensures type safety for your team data.
@@ -13,6 +15,7 @@ interface TeamMember {
 	role: string;
 	imageUrl: string;
 	altText: string;
+	imageClassName?: string;
 }
 
 // An array of team member objects.
@@ -45,27 +48,21 @@ const teamMembers: TeamMember[] = [
 	{
 		id: 4,
 		order: "04",
-		name: 'Sudhanshu',
-		role: 'Senior Video Editor',
-		imageUrl: '/images/Sudhanshu.jpeg',
-		altText: 'Portrait of Sudhanshu, Senior Video Editor',
+		name: 'Deepak',
+		role: 'Creative Motion Architect',
+		imageUrl: '/images/Deepak.jpeg',
+		altText: 'Portrait of Deepak, Creative Motion Architect',
+		imageClassName: 'object-top',
 	},
-	// {
-	// 	id: 5,
-	// 	order: "05",
-	// 	name: 'Deepak',
-	// 	role: 'Senior Video Editor',
-	// 	imageUrl: '/images/Deepak.jpg',
-	// 	altText: 'Portrait of Deepak, Senior Video Editor',
-	// },
 	{
 		id: 5,
 		order: "05",
-		name: 'Parth',
-		role: 'Content Operations Associate',
-		imageUrl: '/images/Parth.jpeg',
-		altText: 'Portrait of Parth, Content Operations Associate',
-	}
+		name: 'Archit Jain',
+		role: 'Creative Motion Architect',
+		imageUrl: '/images/Archit.jpeg',
+		altText: 'Portrait of Archit Jain, Creative Motion Architect',
+		imageClassName: 'object-top',
+	},
 
 ];
 
@@ -75,19 +72,19 @@ const teamMembers: TeamMember[] = [
  * @param {TeamMember} member - The team member data object.
  */
 const TeamMemberCard = ({ member }: { member: TeamMember }) => (
-	<div className="flex flex-col items-start text-center">
+	<Reveal y={36} className="flex flex-col items-start text-center group">
 		<div className="relative w-full aspect-[3/4] mb-2 overflow-hidden">
 			<Image
 				src={member.imageUrl}
 				alt={member.altText}
 				fill
-				className="object-cover"
+				className={`object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-105 ${member.imageClassName ?? ''}`}
 			/>
 		</div>
 		<p className='text-sm text-gray-500'>[{member.order}]</p>
 		<h3 className="text-lg font-bold uppercase tracking-wide">{member.name}</h3>
 		<p className="text-sm text-gray-500">{member.role}</p>
-	</div>
+	</Reveal>
 );
 
 /**
@@ -105,14 +102,14 @@ export default function About() {
 						{/* The sticky container now has vertical padding to control spacing from viewport edges. */}
 						<div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:justify-between py-24 z-[-10]">
 							{/* Top part: Heading - Font size and weight are reduced. */}
-							<h1 className="text-7xl md:text-8xl font-medium uppercase tracking-tighter leading-none text-[#cc0906]">
+							<SplitReveal as="h1" type="chars" onScroll={false} className="text-7xl md:text-8xl font-medium uppercase tracking-tighter leading-none text-[#cc0906]">
 								[ Meet The<br />Team ]
-							</h1>
+							</SplitReveal>
 							{/* Bottom part: Paragraphs - Padding is now controlled by the parent. */}
 							<div className="space-y-5 text-base text-gray-700 max-w-md">
-								<p>
+								<Reveal as="p" delay={0.2}>
 									The Digital Canvas Was Changing. Where Formulas Once Reigned, Artistry Now Held The Key To True Connection. The Old Marketing Vernacular Was Obsolete; Success Now Spoke A New Language—The Language Of Powerful, Creative Content. A Strange Paradox Emerged, As The Very Agencies Built For Performance Were Creatively Mute. Lavanya Heard The Dissonance. He Founded <span className='font-bold font-sans italic text-[#cc0906]'>'SHOWNOMORE'</span> To Give The Future A Voice.
-								</p>
+								</Reveal>
 							</div>
 						</div>
 					</aside>

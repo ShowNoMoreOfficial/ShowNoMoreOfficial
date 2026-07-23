@@ -1,127 +1,119 @@
-import { ArrowUpRight } from "lucide-react";
-
-const DAFTAR_API =
-  "https://daftar.shownomore.com/api/public/articles?key=daftar_pub_8509d3e5ad66589ab03fe1f2211411cb60db7b5adedad651";
-
-interface Article {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string | null;
-  category: string | null;
-  author: string | null;
-  tags: string[];
-  coverImage: string | null;
-  seoTitle: string;
-  seoDescription: string;
-  wordCount: number;
-  readTimeMin: number;
-  publishedAt: string;
-}
-
-async function getArticles(): Promise<Article[]> {
-  try {
-    const res = await fetch(`${DAFTAR_API}&format=json&limit=20`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.data || [];
-  } catch {
-    return [];
-  }
-}
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
+import Reveal from "../components/motion/Reveal";
+import {
+  getPosts,
+  formatDateShort,
+  parseHeadline,
+  type GatherPost,
+} from "../../lib/gather";
 
 export const metadata = {
   title: "Blog | Show No More",
   description:
-    "Insights, analysis, and commentary from ShowNoMore — a Delhi-based media-tech studio.",
+    "Field notes, ideas, and commentary from ShowNoMore on tech, production, strategy, and AI automation.",
 };
 
-export default async function BlogPage() {
-  const articles = await getArticles();
+// Refresh at most once a minute; the /api/revalidate webhook makes publishing
+// in Gather feel instant.
+export const revalidate = 60;
+
+/**
+ * A single entry in the editorial feed. Alignment alternates left/right down
+ * the page, with the author credit tucked into the opposite corner — matching
+ * the Watson "Conversations" layout.
+ */
+function PostEntry({
+  post,
+  displayNo,
+  alignRight,
+}: {
+  post: GatherPost;
+  displayNo: number;
+  alignRight: boolean;
+}) {
+  const segments = parseHeadline(post.title);
+  const author = post.author?.name || "ShowNoMore";
+  const href = `/blog/${post.slug}`;
 
   return (
-    <div className="min-h-screen px-6 pt-32 pb-20">
-      {/* Header */}
-      <div className="max-w-5xl mx-auto mb-16">
-        <h1 className="text-5xl md:text-7xl font-bold text-gray-800 tracking-tight">
-          Blog
-        </h1>
-        <p className="mt-4 text-xl text-gray-500 max-w-2xl">
-          Insights, analysis, and commentary from ShowNoMore.
-        </p>
-      </div>
+    <article className="relative border-b border-gray-300 px-6 md:px-10 py-20 md:py-28">
+      {/* Index number — top right */}
+      <span className="absolute top-8 right-6 md:right-10 text-lg md:text-xl text-gray-800">
+        ({displayNo})
+      </span>
 
-      {/* Articles Grid */}
-      <div className="max-w-5xl mx-auto">
-        {articles.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-2xl text-gray-400">No articles published yet.</p>
-            <p className="mt-2 text-gray-400">Check back soon.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-            {articles.map((article, index) => (
-              <a
-                key={article.id}
-                href={`/blog/${article.slug}`}
-                className="group block"
-              >
-                {/* Cover Image */}
-                {article.coverImage && (
-                  <div className="overflow-hidden mb-4">
-                    <img
-                      src={article.coverImage}
-                      alt={article.title}
-                      className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                )}
-
-                {/* Meta */}
-                <div className="flex items-center gap-3 text-sm text-gray-400 mb-2">
-                  {article.category && (
-                    <span className="text-[#cc0906] font-medium uppercase tracking-wide text-xs">
-                      {article.category}
-                    </span>
-                  )}
-                  {article.publishedAt && (
-                    <span>{formatDate(article.publishedAt)}</span>
-                  )}
-                  <span>{article.readTimeMin} min read</span>
-                </div>
-
-                {/* Title */}
-                <h2 className="text-2xl font-bold text-gray-800 group-hover:text-[#cc0906] transition-colors duration-200 leading-tight">
-                  {article.title}
-                </h2>
-
-                {/* Excerpt */}
-                {article.excerpt && (
-                  <p className="mt-2 text-gray-500 leading-relaxed line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                )}
-
-                {/* Read More */}
-                <div className="mt-3 flex items-center gap-1 text-sm font-medium text-[#cc0906] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Read Article{" "}
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
-              </a>
-            ))}
-          </div>
+      <Reveal y={40}>
+        {/* Cover image — centered, floating */}
+        {post.coverImage && (
+          <a href={href} className="group block mb-12">
+            <div className="mx-auto w-[86%] md:w-[48%] overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={post.coverImage}
+                alt={post.title}
+                className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+              />
+            </div>
+          </a>
         )}
+
+        {/* Headline block */}
+        <a
+          href={href}
+          className={`group flex flex-col ${
+            alignRight ? "items-end text-right" : "items-start text-left"
+          }`}
+        >
+          <span className="text-xs md:text-sm text-gray-500 mb-4">
+            ({formatDateShort(post.createdAt)})
+          </span>
+          <h2 className="max-w-5xl text-5xl md:text-7xl lg:text-8xl leading-[1.02] tracking-tight text-[#1a1a1a] group-hover:text-[#cc0906] transition-colors duration-300">
+            {segments.map((s, i) => (
+              <span key={i} className={s.bold ? "font-bold" : "font-light"}>
+                {s.text}
+              </span>
+            ))}
+          </h2>
+        </a>
+
+        {/* Author credit — opposite corner from the headline */}
+        <p
+          className={`mt-10 text-sm text-gray-600 italic ${
+            alignRight ? "text-left" : "text-right"
+          }`}
+        >
+          (By {author})
+        </p>
+      </Reveal>
+    </article>
+  );
+}
+
+export default async function BlogPage() {
+  const posts = await getPosts();
+
+  if (posts.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-6">
+        <div className="text-center">
+          <p className="text-3xl text-gray-300 font-medium tracking-tight">
+            No conversations yet.
+          </p>
+          <p className="mt-3 text-gray-400">New writing is on the way — check back soon.</p>
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="pt-24">
+      {posts.map((post, i) => (
+        <PostEntry
+          key={post.id}
+          post={post}
+          displayNo={posts.length - i}
+          alignRight={i % 2 === 1}
+        />
+      ))}
     </div>
   );
 }
