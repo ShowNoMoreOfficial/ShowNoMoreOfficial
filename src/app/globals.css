@@ -52,6 +52,22 @@ body {
   animation: marquee 20s linear infinite;
 }
 
+/* Booking page — flowing tilted-card carousel + logo strip */
+@keyframes booking-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-booking-scroll {
+  animation: booking-scroll 45s linear infinite;
+}
+.animate-booking-scroll-slow {
+  animation: booking-scroll 60s linear infinite;
+}
+/* Card stacking: earlier/left cards sit ON TOP of later/right ones. */
+.booking-card {
+  z-index: var(--card-z, 1);
+}
+
 /* Accessibility safety net: honour reduced-motion globally. JS reveals are
    already gated in the primitives; this neutralises any CSS-driven motion
    (marquees, hover scales, grid-row transitions) for good measure. */
