@@ -45,25 +45,6 @@ const teamMembers: TeamMember[] = [
 		imageUrl: '/images/Stallone.jpeg',
 		altText: 'Portrait of Stallone, Head Of Development',
 	},
-	{
-		id: 4,
-		order: "04",
-		name: 'Deepak',
-		role: 'Creative Visual Architect',
-		imageUrl: '/images/Deepak.jpeg',
-		altText: 'Portrait of Deepak, Creative Visual Architect',
-		imageClassName: 'object-top',
-	},
-	{
-		id: 5,
-		order: "05",
-		name: 'Archit Jain',
-		role: 'Creative Motion Architect',
-		imageUrl: '/images/Archit.jpeg',
-		altText: 'Portrait of Archit Jain, Creative Motion Architect',
-		imageClassName: 'object-top',
-	},
-
 ];
 
 /**
